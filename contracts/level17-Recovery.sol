@@ -44,21 +44,25 @@ contract SimpleToken {
 // the goal here is to call the destroy function from the simple contract
 
 // first, you get the function signature
-functionSignature = {
-    name: 'destroy',
-    type: 'function',
-    inputs: [
-        {
-            type: 'address',
-            name: '_to'
-        }
-    ]
-}
+// functionSignature = {
+//     name: 'destroy',
+//     type: 'function',
+//     inputs: [
+//         {
+//             type: 'address',
+//             name: '_to'
+//         }
+//     ]
+// }
 
-params = [player]
+// params = [player]
 
-data = web3.eth.abi.encodeFunctionCall(functionSignature, params)
+// data = web3.eth.abi.encodeFunctionCall(functionSignature, params)
 
-// token address is the ddress of the simple token
+// // token address is the ddress of the simple token
 
-await web3.eth.sendTransaction({from: player, to: tokenAddr, data})
+// await web3.eth.sendTransaction({from: player, to: tokenAddr, data})
+
+// or simply 
+// simpleToken(_target).destroy()
+
