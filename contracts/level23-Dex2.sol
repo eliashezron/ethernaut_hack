@@ -83,3 +83,19 @@ contract MyToken is IERC20 {
         emit Transfer(msg.sender, address(0), amount);
     }
 }
+
+// or simply
+// create a new token Y
+// mint for your self 400
+// send 100 to the contract
+// swap 100 for token 1. 
+// this will withdraw all of token 1
+// then swap 200 for all of token 2
+// this will withdraw of of token 2
+
+//       DEX             |      player  
+// token1 - token2 - EVL | token1 - token2 - EVL
+// ---------------------------------------------
+//   100     100     100 |   10      10      300
+//   0       100     200 |   110     10      200
+//   0       0       400 |   110     110     0
