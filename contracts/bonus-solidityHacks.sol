@@ -3,35 +3,25 @@ pragma solidity ^0.8.17;
 
 // gas golf
 contract GasGolf {
-    // start - 50908 gas
-    // use calldata - 49163 gas
-    // load state variables to memory - 48952 gas
-    // short circuit - 48634 gas
-    // loop increments - 48244 gas
-    // cache array length - 48209 gas
-    // load array elements to memory - 48047 gas
-    // uncheck i overflow/underflow - 47309 gas
+     // gas optimized
+    // [1, 2, 3, 4, 5, 100]
+    // start - 50860 gas
+    // use calldata - 49115 gas
+    // load state variables to memory - 48904 gas
+    // short circuit - 48586 gas
+    // loop increments - i++ = 48244 gas - ++1 = 48214 gas
+    // cache array length - 48179 gas
+    // load array elements to memory - 48017gas
+    // function (++1)= 47603 gas, function (i++) = 47633 gass
+    // uncheck i overflow/underflow - checked = 47297 gas, 
 
     uint public total;
 
     // start - not gas optimized
-    // function sumIfEvenAndLessThan99(uint[] memory nums) external {
-    //     for (uint i = 0; i < nums.length; i += 1) {
-    //         bool isEven = nums[i] % 2 == 0;
-    //         bool isLessThan99 = nums[i] < 99;
-    //         if (isEven && isLessThan99) {
-    //             total += nums[i];
-    //         }
-    //     }
-    // }
-
-    // gas optimized
-    // [1, 2, 3, 4, 5, 100]
     function sumIfEvenAndLessThan99(uint[] calldata nums) external {
         uint _total = total;
         uint len = nums.length;
-
-        for (uint i = 0; i < len; ) {
+        for (uint i = 0; i < len;) {
             uint num = nums[i];
             if (num % 2 == 0 && num < 99) {
                 _total += num;
@@ -40,7 +30,12 @@ contract GasGolf {
                 ++i;
             }
         }
-
         total = _total;
     }
+    //  function unchecked_inc(uint i) internal pure returns(uint){
+    //   unchecked {
+    //     ++i;
+    //   }
+    //   return i;
+    // }
 }
