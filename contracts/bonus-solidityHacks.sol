@@ -32,6 +32,7 @@ contract GasGolf {
         }
         total = _total;
     }
+    //Also wrapping the entire for loop in 'unchecked` can do the trick
     //  function unchecked_inc(uint i) internal pure returns(uint){
     //   unchecked {
     //     ++i;
